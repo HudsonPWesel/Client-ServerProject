@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Project_Document</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } 
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.at { color: #204a87; } 
+code span.bn { color: #0000cf; } 
+code span.cf { color: #204a87; font-weight: bold; } 
+code span.ch { color: #4e9a06; } 
+code span.cn { color: #8f5902; } 
+code span.co { color: #8f5902; font-style: italic; } 
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.dt { color: #204a87; } 
+code span.dv { color: #0000cf; } 
+code span.er { color: #a40000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #0000cf; } 
+code span.fu { color: #204a87; font-weight: bold; } 
+code span.im { } 
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.kw { color: #204a87; font-weight: bold; } 
+code span.op { color: #ce5c00; font-weight: bold; } 
+code span.ot { color: #8f5902; } 
+code span.pp { color: #8f5902; font-style: italic; } 
+code span.sc { color: #ce5c00; font-weight: bold; } 
+code span.ss { color: #4e9a06; } 
+code span.st { color: #4e9a06; } 
+code span.va { color: #000000; } 
+code span.vs { color: #4e9a06; } 
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">
+html {
+font-size: 100%;
+overflow-y: scroll;
+-webkit-text-size-adjust: 100%;
+-ms-text-size-adjust: 100%;
+}
+body {
+color: #444;
+font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+font-size: 12px;
+line-height: 1.7;
+padding: 1em;
+margin: auto;
+max-width: 42em;
+background: #fefefe;
+}
+a {
+color: #0645ad;
+text-decoration: none;
+}
+a:visited {
+color: #0b0080;
+}
+a:hover {
+color: #06e;
+}
+a:active {
+color: #faa700;
+}
+a:focus {
+outline: thin dotted;
+}
+*::-moz-selection {
+background: rgba(255, 255, 0, 0.3);
+color: #000;
+}
+*::selection {
+background: rgba(255, 255, 0, 0.3);
+color: #000;
+}
+a::-moz-selection {
+background: rgba(255, 255, 0, 0.3);
+color: #0645ad;
+}
+a::selection {
+background: rgba(255, 255, 0, 0.3);
+color: #0645ad;
+}
+p {
+margin: 1em 0;
+}
+img {
+max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+color: #111;
+line-height: 125%;
+margin-top: 2em;
+font-weight: normal;
+}
+h4, h5, h6 {
+font-weight: bold;
+}
+h1 {
+font-size: 2.5em;
+}
+h2 {
+font-size: 2em;
+}
+h3 {
+font-size: 1.5em;
+}
+h4 {
+font-size: 1.2em;
+}
+h5 {
+font-size: 1em;
+}
+h6 {
+font-size: 0.9em;
+}
+blockquote {
+color: #666666;
+margin: 0;
+padding-left: 3em;
+border-left: 0.5em #EEE solid;
+}
+hr {
+display: block;
+height: 2px;
+border: 0;
+border-top: 1px solid #aaa;
+border-bottom: 1px solid #eee;
+margin: 1em 0;
+padding: 0;
+}
+pre, code, kbd, samp {
+color: #000;
+font-family: monospace, monospace;
+_font-family: 'courier new', monospace;
+font-size: 0.98em;
+}
+pre {
+white-space: pre;
+white-space: pre-wrap;
+word-wrap: break-word;
+}
+b, strong {
+font-weight: bold;
+}
+dfn {
+font-style: italic;
+}
+ins {
+background: #ff9;
+color: #000;
+text-decoration: none;
+}
+mark {
+background: #ff0;
+color: #000;
+font-style: italic;
+font-weight: bold;
+}
+sub, sup {
+font-size: 75%;
+line-height: 0;
+position: relative;
+vertical-align: baseline;
+}
+sup {
+top: -0.5em;
+}
+sub {
+bottom: -0.25em;
+}
+ul, ol {
+margin: 1em 0;
+padding: 0 0 0 2em;
+}
+li p:last-child {
+margin-bottom: 0;
+}
+ul ul, ol ol {
+margin: .3em 0;
+}
+dl {
+margin-bottom: 1em;
+}
+dt {
+font-weight: bold;
+margin-bottom: .8em;
+}
+dd {
+margin: 0 0 .8em 2em;
+}
+dd:last-child {
+margin-bottom: 0;
+}
+img {
+border: 0;
+-ms-interpolation-mode: bicubic;
+vertical-align: middle;
+}
+figure {
+display: block;
+text-align: center;
+margin: 1em 0;
+}
+figure img {
+border: none;
+margin: 0 auto;
+}
+figcaption {
+font-size: 0.8em;
+font-style: italic;
+margin: 0 0 .8em;
+}
+table {
+margin-bottom: 2em;
+border-bottom: 1px solid #ddd;
+border-right: 1px solid #ddd;
+border-spacing: 0;
+border-collapse: collapse;
+}
+table th {
+padding: .2em 1em;
+background-color: #eee;
+border-top: 1px solid #ddd;
+border-left: 1px solid #ddd;
+}
+table td {
+padding: .2em 1em;
+border-top: 1px solid #ddd;
+border-left: 1px solid #ddd;
+vertical-align: top;
+}
+.author {
+font-size: 1.2em;
+text-align: center;
+}
+@media only screen and (min-width: 480px) {
+body {
+font-size: 14px;
+}
+}
+@media only screen and (min-width: 768px) {
+body {
+font-size: 16px;
+}
+}
+@media print {
+* {
+background: transparent !important;
+color: black !important;
+filter: none !important;
+-ms-filter: none !important;
+}
+body {
+font-size: 12pt;
+max-width: 100%;
+}
+a, a:visited {
+text-decoration: underline;
+}
+hr {
+height: 1px;
+border: 0;
+border-bottom: 1px solid black;
+}
+a[href]:after {
+content: " (" attr(href) ")";
+}
+abbr[title]:after {
+content: " (" attr(title) ")";
+}
+.ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after {
+content: "";
+}
+pre, blockquote {
+border: 1px solid #999;
+padding-right: 1em;
+page-break-inside: avoid;
+}
+tr, img {
+page-break-inside: avoid;
+}
+img {
+max-width: 100% !important;
+}
+@page :left {
+margin: 15mm 20mm 15mm 10mm;
+}
+@page :right {
+margin: 15mm 10mm 15mm 20mm;
+}
+p, h2, h3 {
+orphans: 3;
+widows: 3;
+}
+h2, h3 {
+page-break-after: avoid;
+}
+}</style>
+</head>
+<body>
+<h1 id="lab-and-project-multiplayer-trivia-game-using-raspberry-pi"><strong>Lab
+and Project: Multiplayer Trivia Game Using Raspberry Pi</strong></h1>
+<h3 id="overview"><strong>Overview</strong></h3>
+<p>Welcome to the Multiplayer Trivia Game project! You will work in
+teams of four to design, implement, and test a client-server trivia game
+using Raspberry Pis. One Raspberry Pi will act as the server, and the
+other three will act as clients.</p>
+<p>The server will manage trivia questions, evaluate client responses,
+and calculate scores. Clients will connect to the server, answer
+questions, and receive feedback on their performance. By the end of the
+project, you will have a fully functional multiplayer trivia game
+system!</p>
+<hr />
+<h3 id="objectives"><strong>Objectives</strong></h3>
+<ol type="1">
+<li>Learn about client-server communication using TCP sockets in C.</li>
+<li>Set up and configure a Raspberry Pi network for distributed
+computing.</li>
+<li>Implement and test a trivia game with multiple clients.</li>
+<li>Enhance the game by adding threading, dynamic question pools, and a
+leaderboard.</li>
+</ol>
+<hr />
+<h2 id="part-1-lab-activity-single-client-trivia-game"><strong>Part 1:
+Lab Activity (Single-Client Trivia Game)</strong></h2>
+<h3 id="step-1-setting-up-your-raspberry-pis"><strong>Step 1: Setting Up
+Your Raspberry Pis</strong></h3>
+<ol type="1">
+<li><p>Assign roles in your team:</p>
+<ul>
+<li><strong>1 Server Pi</strong>: Runs the trivia game server.</li>
+<li><strong>3 Client Pis</strong>: Connect to the server to play the
+game.</li>
+</ul></li>
+<li><p>Ensure all Raspberry Pis are active on network, you can send a
+<code>ping</code>.</p></li>
+<li><p>Install necessary packages on all Pis:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install gcc make</span></code></pre></div></li>
+</ol>
+<h3 id="step-2-understanding-the-code"><strong>Step 2: Understanding the
+Code</strong></h3>
+<ol type="1">
+<li><p><strong>Server Code</strong>:</p>
+<ul>
+<li>Manages trivia questions and scores.</li>
+<li>Sends questions to the client and evaluates their answers.</li>
+<li>Handles a single client connection at a time (for now).</li>
+</ul></li>
+<li><p><strong>Client Code</strong>:</p>
+<ul>
+<li>Connects to the server to receive questions.</li>
+<li>Sends user answers back to the server for evaluation.</li>
+<li>Displays feedback and the final score.</li>
+</ul></li>
+</ol>
+<h3 id="step-3-compiling-the-code"><strong>Step 3: Compiling the
+Code</strong></h3>
+<p>Transfer the provided server and client code to the appropriate
+Raspberry Pis using <code>scp</code>.</p>
+<ul>
+<li><p><strong>Compile the Server Code (on Server Pi):</strong></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gcc</span> <span class="at">-o</span> server server.c</span></code></pre></div></li>
+<li><p><strong>Compile the Client Code (on Client Pis):</strong></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gcc</span> <span class="at">-o</span> client client.c</span></code></pre></div></li>
+</ul>
+<h3 id="step-4-running-the-system"><strong>Step 4: Running the
+System</strong></h3>
+<ol type="1">
+<li><p>Start the server on the designated Server Pi:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./server</span></span></code></pre></div></li>
+<li><p>Start the client on one Client Pi:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./client</span></span></code></pre></div></li>
+</ol>
+<h3 id="step-5-testing"><strong>Step 5: Testing</strong></h3>
+<ul>
+<li><p>Observe the trivia game flow between the server and the
+client:</p>
+<ul>
+<li>The server sends questions to the client.</li>
+<li>The client sends answers back to the server.</li>
+<li>The server sends feedback (e.g., Correct/Wrong) and the final
+score.</li>
+</ul></li>
+<li><p>Debug any connection or communication issues.</p></li>
+</ul>
+<hr />
+<h2 id="part-2-project---extending-the-trivia-game"><strong>Part 2:
+Project - Extending the Trivia Game</strong></h2>
+<h3 id="project-goals"><strong>Project Goals</strong></h3>
+<p>Enhance the trivia game to support multiple clients simultaneously
+and improve its functionality.</p>
+<hr />
+<h3 id="add-more-questions"><strong>1. Add More Questions</strong></h3>
+<ul>
+<li><p>Modify the server to load trivia questions dynamically from a
+file.</p></li>
+<li><p>Create a <code>questions.txt</code> file on the Server Pi with
+<strong>10 trivia questions and answers</strong>. Each question and
+answer should be on a single line and separated by a pipe
+(<code>|</code>) delimiter:</p>
+<pre><code>What is the capital of Germany?|Berlin
+What is 3 * 3?|9
+Who painted the Mona Lisa?|Leonardo da Vinci
+What is the largest planet in our solar system?|Jupiter
+Who is the author of &quot;1984&quot;?|George Orwell
+What is the chemical symbol for water?|H2O
+What year did World War II end?|1945
+What is the square root of 64?|8
+What is the national animal of Canada?|Beaver
+What is the main ingredient in guacamole?|Avocado</code></pre></li>
+<li><p>Update the server code to read questions from this file and
+populate the trivia array.</p></li>
+</ul>
+<hr />
+<h3 id="add-multi-client-support-threading"><strong>2. Add Multi-Client
+Support (Threading)</strong></h3>
+<ul>
+<li>Modify the server to handle multiple clients simultaneously by
+creating a new thread for each client.</li>
+<li>Use the <code>pthread</code> library in C:
+<ul>
+<li><p>Create a thread for each client connection:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pthread_t thread_id<span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span><span class="op">*</span> client_socket_ptr <span class="op">=</span> malloc<span class="op">(</span><span class="kw">sizeof</span><span class="op">(</span><span class="dt">int</span><span class="op">));</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="op">*</span>client_socket_ptr <span class="op">=</span> accept<span class="op">(</span>server_socket<span class="op">,</span> <span class="op">(</span><span class="kw">struct</span> sockaddr<span class="op">*)&amp;</span>client_addr<span class="op">,</span> <span class="op">&amp;</span>addr_len<span class="op">);</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>pthread_create<span class="op">(&amp;</span>thread_id<span class="op">,</span> NULL<span class="op">,</span> thread_function<span class="op">,</span> client_socket_ptr<span class="op">);</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>pthread_detach<span class="op">(</span>thread_id<span class="op">);</span></span></code></pre></div></li>
+<li><p>Update the <code>handle_client</code> function to work within
+threads.</p></li>
+</ul></li>
+</ul>
+<hr />
+<h3 id="implement-a-persistent-leaderboard"><strong>3. Implement a
+Persistent Leaderboard</strong></h3>
+<ul>
+<li><p>Create a <code>leaderboard.txt</code> file on the Server Pi to
+store player scores:</p>
+<pre><code>192.168.1.10|5
+192.168.1.11|3
+192.168.1.12|4</code></pre></li>
+<li><p>Update the server to:</p>
+<ul>
+<li>Save scores to the leaderboard file after each game.</li>
+<li>Display the leaderboard to clients at the start of the game.</li>
+</ul></li>
+</ul>
+<p><strong>Hint for Coding the Leaderboard</strong>:</p>
+<ol type="1">
+<li><p><strong>To Save Scores</strong>: Use <code>fprintf</code> to
+append scores to the file:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dt">FILE</span> <span class="op">*</span>file <span class="op">=</span> fopen<span class="op">(</span><span class="st">&quot;leaderboard.txt&quot;</span><span class="op">,</span> <span class="st">&quot;a&quot;</span><span class="op">);</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>fprintf<span class="op">(</span>file<span class="op">,</span> <span class="st">&quot;</span><span class="sc">%s</span><span class="st">|</span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span> client_ip<span class="op">,</span> score<span class="op">);</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>fclose<span class="op">(</span>file<span class="op">);</span></span></code></pre></div></li>
+<li><p><strong>To Load Scores</strong>: Use <code>fscanf</code> to read
+scores from the file:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dt">FILE</span> <span class="op">*</span>file <span class="op">=</span> fopen<span class="op">(</span><span class="st">&quot;leaderboard.txt&quot;</span><span class="op">,</span> <span class="st">&quot;r&quot;</span><span class="op">);</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>fscanf<span class="op">(</span>file<span class="op">,</span> <span class="st">&quot;%[^|]|</span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span> ip<span class="op">,</span> <span class="op">&amp;</span>score<span class="op">)</span> <span class="op">!=</span> EOF<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;</span><span class="sc">%s</span><span class="st">: </span><span class="sc">%d\n</span><span class="st">&quot;</span><span class="op">,</span> ip<span class="op">,</span> score<span class="op">);</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>fclose<span class="op">(</span>file<span class="op">);</span></span></code></pre></div></li>
+</ol>
+<hr />
+<h2 id="suggested-workflow"><strong>Suggested Workflow</strong></h2>
+<h3 id="single-client-trivia-game"><strong>1: Single-Client Trivia
+Game</strong></h3>
+<ul>
+<li>Set up the server and client on Raspberry Pis.</li>
+<li>Test the basic trivia game with one client.</li>
+</ul>
+<h3 id="multi-client-support"><strong>2: Multi-Client
+Support</strong></h3>
+<ul>
+<li>Implement threading on the server.</li>
+<li>Test with multiple clients (3 Pis) connecting simultaneously.</li>
+</ul>
+<h3 id="dynamic-questions-and-leaderboard"><strong>3: Dynamic Questions
+and Leaderboard</strong></h3>
+<ul>
+<li>Load questions from a file.</li>
+<li>Implement a persistent leaderboard.</li>
+</ul>
+<hr />
+<h2 id="submission-requirements"><strong>Submission
+Requirements</strong></h2>
+<ol type="1">
+<li><p><strong>Code:</strong></p>
+<ul>
+<li>Submit the final <code>server.c</code> and <code>client.c</code>
+files with comments.</li>
+</ul></li>
+<li><p><strong>Documentation:</strong></p>
+<ul>
+<li>Include a README file with:
+<ul>
+<li>Instructions to run the system.</li>
+<li>Explanation of added features.</li>
+</ul></li>
+</ul></li>
+<li><p><strong>Presentation:</strong></p>
+<ul>
+<li>Demonstrate your working trivia game with multiple clients.</li>
+</ul></li>
+</ol>
+<hr />
+<h2 id="grading-criteria"><strong>Grading Criteria</strong></h2>
+<ul>
+<li>Basic Trivia Game (Week 1): 30%</li>
+<li>Multi-Client Support (Week 2): 30%</li>
+<li>Dynamic Questions (Week 3): 20%</li>
+<li>Leaderboard Implementation: 20%</li>
+<li><strong>Extra Credit:</strong> add something creative!</li>
+</ul>
+<hr />
+<h3 id="good-luck"><strong>Good Luck!</strong></h3>
+<p>Work collaboratively, experiment with the code, and have fun building
+your trivia game! Remember, teamwork and debugging are key to
+success.</p>
+</body>
+</html>
