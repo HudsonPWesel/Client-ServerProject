@@ -11,14 +11,14 @@
 // Define the structure for trivia questions
 typedef struct
 {
-    char question[BUFFER_SIZE];
-    char answer[BUFFER_SIZE];
+    char *question;
+    char *answer;
 } Trivia;
 
 // Sample trivia questions
 
-Trivia trivia[] = {};
-int trivia_count = 3; // Number of trivia questions
+Trivia trivia[10];
+int trivia_count = 10; // Number of trivia questions
 
 // Function to handle communication with a single client
 void handle_client(int client_socket, char *client_ip)
@@ -102,33 +102,27 @@ int main()
     listen(server_socket, 5);
     printf("Server is running on port %d...\n", PORT);
 
-    Trivia triviaQuestions[] = {};
     int trivia_count = 10; // Number of trivia questions
 
     // Question from File
     FILE *file;
     char data[MAX_LINES][MAX_LEN];
     int line = 0;
-    char *questions[10];
-    char *answers[10];
 
     file = fopen("questions.txt", "r");
 
     while (!feof(file) && !ferror(file))
         if (fgets(data[line], MAX_LEN, file) != NULL)
         {
-            if (!line % 2 == 0)
-                answers[line] = data[line];
-            else
-                questions[line] = data[line];
             line++;
+
             //  {"What is the capital of France?", "Paris"},
         }
     fclose(file);
 
     for (int i = 0; i < line; i++)
     {
-        printf("%s", questions[i]);
+        printf("%s", data[i]);
     }
 
     // {"What is the capital of France?", "Paris"},
