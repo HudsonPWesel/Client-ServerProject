@@ -6,7 +6,8 @@
 
 #define PORT 8080        // Port the server listens on
 #define BUFFER_SIZE 1024 // Buffer size for communication
-
+#define MAX_LINES 100
+#define MAX_LEN 1000
 // Define the structure for trivia questions
 typedef struct
 {
@@ -15,10 +16,8 @@ typedef struct
 } Trivia;
 
 // Sample trivia questions
-Trivia trivia[] = {
-    {"What is the capital of France?", "Paris"},
-    {"What is 5 + 7?", "12"},
-    {"Who wrote 'Romeo and Juliet'?", "Shakespeare"}};
+
+Trivia trivia[] = {};
 int trivia_count = 3; // Number of trivia questions
 
 // Function to handle communication with a single client
@@ -102,6 +101,37 @@ int main()
     // Listen for incoming connections
     listen(server_socket, 5);
     printf("Server is running on port %d...\n", PORT);
+
+    Trivia triviaQuestions[] = {};
+    int trivia_count = 10; // Number of trivia questions
+
+    // Question from File
+    FILE *file;
+    char data[MAX_LINES][MAX_LEN];
+    int line = 0;
+    char *questions[10];
+    char *answers[10];
+
+    file = fopen("questions.txt", "r");
+
+    while (!feof(file) && !ferror(file))
+        if (fgets(data[line], MAX_LEN, file) != NULL)
+        {
+            if (!line % 2 == 0)
+                answers[line] = data[line];
+            else
+                questions[line] = data[line];
+            line++;
+            //  {"What is the capital of France?", "Paris"},
+        }
+    fclose(file);
+
+    for (int i = 0; i < line; i++)
+    {
+        printf("%s", questions[i]);
+    }
+
+    // {"What is the capital of France?", "Paris"},
 
     while (1)
     {
