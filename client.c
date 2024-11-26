@@ -9,20 +9,24 @@
 #define BUFFER_SIZE 1024      // Buffer size for messages
 
 // Function to clear residual input in stdin
-void clear_stdin() {
+void clear_stdin()
+{
     int c;
-    while ((c = getchar()) != '\n' && c != EOF); // Discard any leftover input
+    while ((c = getchar()) != '\n' && c != EOF)
+        ; // Discard any leftover input
 }
 
-int main() {
-    int client_socket; // Socket descriptor for the client
+int main()
+{
+    int client_socket;              // Socket descriptor for the client
     struct sockaddr_in server_addr; // Server address structure
     char buffer[BUFFER_SIZE];       // Buffer for communication
     int n;
 
     // Create the socket
     client_socket = socket(AF_INET, SOCK_STREAM, 0);
-    if (client_socket < 0) {
+    if (client_socket < 0)
+    {
         perror("Socket creation failed");
         exit(EXIT_FAILURE);
     }
@@ -33,7 +37,8 @@ int main() {
     server_addr.sin_addr.s_addr = inet_addr(SERVER_IP); // IP address
 
     // Connect to the server
-    if (connect(client_socket, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
+    if (connect(client_socket, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0)
+    {
         perror("Connection to server failed");
         close(client_socket);
         exit(EXIT_FAILURE);
@@ -41,20 +46,25 @@ int main() {
 
     printf("Connected to Trivia Game Server!\n");
 
-    while (1) {
+    while (1)
+    {
         // Receive a message (question or final score) from the server
         memset(buffer, 0, BUFFER_SIZE);
         n = recv(client_socket, buffer, BUFFER_SIZE, 0);
-        if (n <= 0) {
+        if (n <= 0)
+        {
             printf("Server disconnected.\n");
             break;
         }
 
         // Check if the received message is the final score
-        if (strstr(buffer, "Your final score")) {
+        if (strstr(buffer, "Your final score"))
+        {
             printf("Game Over: %s\n", buffer);
             break; // Exit the game loop on final score
-        } else {
+        }
+        else
+        {
             // If it's a question, display it
             printf("Question: %s\n", buffer);
 
@@ -71,7 +81,8 @@ int main() {
             memset(buffer, 0, BUFFER_SIZE);
             n = recv(client_socket, buffer, BUFFER_SIZE, 0);
 
-            if (n > 0) {
+            if (n > 0)
+            {
                 printf("%s\n", buffer);
             }
         }

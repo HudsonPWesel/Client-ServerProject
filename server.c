@@ -11,8 +11,8 @@
 // Define the structure for trivia questions
 typedef struct
 {
-    char *question;
-    char *answer;
+    char question[BUFFER_SIZE];
+    char answer[BUFFER_SIZE];
 } Trivia;
 
 // Sample trivia questions
@@ -112,20 +112,27 @@ int main()
     file = fopen("questions.txt", "r");
 
     while (!feof(file) && !ferror(file))
-        if (fgets(data[line], MAX_LEN, file) != NULL)
+        if (fgets(data[line], BUFFER_SIZE, file) != NULL)
         {
             line++;
-
             //  {"What is the capital of France?", "Paris"},
         }
     fclose(file);
 
-    for (int i = 0; i < line; i++)
-    {
-        printf("%s", data[i]);
-    }
+    int nthTrivia = 0;
+    for (int i = 0; i < line; i += 2)
+        if (i + 1 < line)
+        {
+            strcpy(trivia[nthTrivia].question, data[i]);
+            strcpy(trivia[nthTrivia].answer, data[i + 1]);
+            nthTrivia++;
+        }
 
-    // {"What is the capital of France?", "Paris"},
+    for (int i = 0; i < nthTrivia; i++)
+    {
+        printf("Question: %s\n", trivia[i].question);
+        printf("Answer: %s\n", trivia[i].answer);
+    }
 
     while (1)
     {
