@@ -145,24 +145,24 @@ int main()
     // Question from File
     FILE *file;
     char data[MAX_LINES][MAX_LEN];
+    int isQuestion = 1;
     int line = 0;
 
     file = fopen("questions.txt", "r");
 
     while (!feof(file) && !ferror(file))
-        if (fgets(data[line], BUFFER_SIZE, file) != NULL)
-            line++;
-
-    fclose(file);
-
-    int nthTrivia = 0;
-    for (int i = 0; i < line; i += 2)
-        if (i + 1 < line)
+        if (isQuestion)
         {
-            strncpy(trivia[nthTrivia].question, data[i], strlen(data[i]));
-            strncpy(trivia[nthTrivia].answer, data[i + 1], strlen(data[i + 1]));
-            nthTrivia++;
+            fgets(trivia[line].question, BUFFER_SIZE, file);
+            isQuestion = 0;
         }
+        else
+        {
+            fgets(trivia[line].answer, BUFFER_SIZE, file);
+            isQuestion = 1;
+            line++;
+        }
+    fclose(file);
 
     while (1)
     {
