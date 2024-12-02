@@ -159,8 +159,11 @@ int main()
     for (int i = 0; i < line; i += 2)
         if (i + 1 < line)
         {
-            strcpy(trivia[nthTrivia].question, data[i]);
-            strcpy(trivia[nthTrivia].answer, data[i + 1]);
+            for (int j = 0; j < MAX_LEN; j++)
+                trivia[nthTrivia].question[j] = data[i][j];
+            for (int j = 0; j < MAX_LEN; j++)
+                trivia[nthTrivia].answer[j] = data[i + 1][j];
+
             nthTrivia++;
         }
 
