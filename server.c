@@ -29,19 +29,6 @@ int trivia_count = 1; // Number of trivia questions
 void *handle_client(void *ClientArgs)
 {
 
-    printf(" == Current Leaderboard == \n");
-    char leaderboardData[MAX_LINES][MAX_LEN];
-    FILE *file;
-    int line = 0;
-
-    file = fopen("leaderboard.txt", "r");
-    while (!feof(file) && !ferror(file))
-        if (fgets(leaderboardData[line], BUFFER_SIZE, file) != NULL)
-        {
-            printf("%s", leaderboardData[line]);
-            line++;
-        }
-
     char buffer[BUFFER_SIZE]; // Buffer for communication
     int score = 0;            // Client's score
 
@@ -49,8 +36,6 @@ void *handle_client(void *ClientArgs)
 
     char *client_ip = CurrentArgs->client_ip;
     int client_socket = CurrentArgs->client_socket;
-
-    // char *client_ip = (urrentArgs).client_ip;
 
     for (int i = 0; i < trivia_count; i++)
     {
