@@ -6,3 +6,5 @@ Question What is the smallest planet in our solar system?
 Mercury
 Question Who wrote the play Romeo and Juliet?
 William Shakespeare
+Question What continent is Italy a part of?
+Europe
