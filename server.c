@@ -22,8 +22,8 @@ typedef struct HandleClientArgs
     char *client_ip;
 } HandleClientArgs;
 
-Trivia trivia[10];
-int trivia_count = 10; // Number of trivia questions
+Trivia trivia[4];
+int trivia_count = 4; // Number of trivia questions
 
 // Function to handle communication with a single client
 void *handle_client(void *ClientArgs)
