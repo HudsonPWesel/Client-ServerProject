@@ -22,8 +22,8 @@ typedef struct HandleClientArgs
     char *client_ip;
 } HandleClientArgs;
 
-Trivia trivia[1];
-int trivia_count = 1; // Number of trivia questions
+Trivia trivia[10];
+int trivia_count = 10; // Number of trivia questions
 
 // Function to handle communication with a single client
 void *handle_client(void *ClientArgs)
@@ -139,8 +139,6 @@ int main()
     // Listen for incoming connections
     listen(server_socket, 5);
     printf("Server is running on port %d...\n", PORT);
-
-    int trivia_count = 10; // Number of trivia questions
 
     // Question from File
     FILE *file;
