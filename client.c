@@ -48,7 +48,7 @@ int main()
 
     printf("Connected to Trivia Game Server!\n");
 
-      while (1)
+    while (1)
     {
         // Receive a message (question or final score) from the server
         memset(buffer, 0, BUFFER_SIZE);
