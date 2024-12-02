@@ -7,6 +7,8 @@
 #define SERVER_IP "127.0.0.1" // The server's IP address (use Raspberry Pi server IP in actual setup)
 #define SERVER_PORT 9999      // Port the server is listening on
 #define BUFFER_SIZE 1024      // Buffer size for messages
+#define MAX_LINES 100
+#define MAX_LEN 100
 
 // Function to clear residual input in stdin
 void clear_stdin()
@@ -45,6 +47,20 @@ int main()
     }
 
     printf("Connected to Trivia Game Server!\n");
+
+    printf(" == Current Leaderboard == \n");
+
+    FILE *file;
+    char data[MAX_LINES][MAX_LEN];
+    int line = 0;
+
+    file = fopen("leaderboard.txt", "r");
+    while (!feof(file) && !ferror(file))
+        if (fgets(data[line], BUFFER_SIZE, file) != NULL)
+        {
+            printf("%s", data[line]);
+            line++;
+        }
 
     while (1)
     {

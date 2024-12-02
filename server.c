@@ -84,6 +84,11 @@ void *handle_client(void *ClientArgs)
     sprintf(buffer, "Your final score is: %d\n", score);
     send(client_socket, buffer, strlen(buffer), 0);
 
+    // Update Leaderboard
+    // FILE *file = fopen("leaderboard.txt", "a");
+    // fprintf(file, "%s|%d\n", client_ip, score);
+    // fclose(file);
+
     close(client_socket); // Close the connection with the client
     return NULL;
 }
@@ -169,9 +174,8 @@ int main()
 
         // handle_client(client_socket, client_ip);
         pthread_create(&thread_id, NULL, handle_client, (void *)&currentClientArgs);
-        // pthread_detach(thread_id);
 
-        printf("Client disconnected: %s\n", client_ip);
+        // pthread_detach(thread_id);
     }
 
     close(server_socket); // Close the server socket
