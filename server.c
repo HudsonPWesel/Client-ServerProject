@@ -5,7 +5,7 @@
 #include <arpa/inet.h>
 #include <pthread.h>
 
-#define PORT 8080        // Port the server listens on
+#define PORT 9999        // Port the server listens on
 #define BUFFER_SIZE 1024 // Buffer size for communication
 #define MAX_LINES 100
 #define MAX_LEN 1000
@@ -58,13 +58,15 @@ void *handle_client(void *ClientArgs)
         }
 
         buffer[bytes_received] = '\0'; // Null-terminate the received data
-        printf("Received from client @ %s: '%s'\n", client_ip, buffer);
+
+        printf("Received from client @ %s: '%s'\n Correct Answer: %s\n ", client_ip, buffer, trivia[i].answer);
 
         // Remove trailing newline if present
         buffer[strcspn(buffer, "\n")] = 0;
+        trivia[i].answer[strcspn(trivia[i].answer, "\n")] = 0;
 
-        // Check the client's answer and send feedback
-        if (strcmp(buffer, trivia[i].answer) == 0)
+        // Check the client's answer and send feedback (case insensitve)
+        if (strcasecmp(buffer, trivia[i].answer) == 0)
         {
             score++;
             send(client_socket, "Correct!\n", 9, 0);

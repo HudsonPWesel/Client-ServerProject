@@ -5,7 +5,7 @@
 #include <arpa/inet.h>
 
 #define SERVER_IP "127.0.0.1" // The server's IP address (use Raspberry Pi server IP in actual setup)
-#define SERVER_PORT 8080      // Port the server is listening on
+#define SERVER_PORT 9999      // Port the server is listening on
 #define BUFFER_SIZE 1024      // Buffer size for messages
 
 // Function to clear residual input in stdin
