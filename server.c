@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <arpa/inet.h>
+#include <pthread.h>
 
 #define PORT 8080        // Port the server listens on
 #define BUFFER_SIZE 1024 // Buffer size for communication
@@ -15,16 +16,28 @@ typedef struct
     char answer[BUFFER_SIZE];
 } Trivia;
 
-// Sample trivia questions
+typedef struct HandleClientArgs
+{
+    int client_socket;
+    char *client_ip;
+} HandleClientArgs;
 
 Trivia trivia[10];
 int trivia_count = 10; // Number of trivia questions
 
 // Function to handle communication with a single client
-void handle_client(int client_socket, char *client_ip)
+void *handle_client(void *ClientArgs)
 {
+
     char buffer[BUFFER_SIZE]; // Buffer for communication
     int score = 0;            // Client's score
+
+    struct HandleClientArgs *CurrentArgs = (struct HandleClientArgs *)ClientArgs;
+
+    char *client_ip = CurrentArgs->client_ip;
+    int client_socket = CurrentArgs->client_socket;
+
+    // char *client_ip = (urrentArgs).client_ip;
 
     for (int i = 0; i < trivia_count; i++)
     {
@@ -37,11 +50,13 @@ void handle_client(int client_socket, char *client_ip)
         // Receive the client's answer
         memset(buffer, 0, BUFFER_SIZE);
         int bytes_received = recv(client_socket, buffer, BUFFER_SIZE - 1, 0);
+
         if (bytes_received <= 0)
         {
             printf("Client @ %s disconnected or error occurred.\n", client_ip);
             break;
         }
+
         buffer[bytes_received] = '\0'; // Null-terminate the received data
         printf("Received from client @ %s: '%s'\n", client_ip, buffer);
 
@@ -68,6 +83,7 @@ void handle_client(int client_socket, char *client_ip)
     send(client_socket, buffer, strlen(buffer), 0);
 
     close(client_socket); // Close the connection with the client
+    return NULL;
 }
 
 int main()
@@ -113,10 +129,8 @@ int main()
 
     while (!feof(file) && !ferror(file))
         if (fgets(data[line], BUFFER_SIZE, file) != NULL)
-        {
             line++;
-            //  {"What is the capital of France?", "Paris"},
-        }
+
     fclose(file);
 
     int nthTrivia = 0;
@@ -128,28 +142,32 @@ int main()
             nthTrivia++;
         }
 
-    for (int i = 0; i < nthTrivia; i++)
-    {
-        printf("Question: %s\n", trivia[i].question);
-        printf("Answer: %s\n", trivia[i].answer);
-    }
-
     while (1)
     {
         // Accept a client connection
-        client_socket = accept(server_socket, (struct sockaddr *)&client_addr, &addr_len);
-        if (client_socket < 0)
+        // client_socket = accept(server_socket, (struct sockaddr *)&client_addr, &addr_len);
+
+        pthread_t thread_id;
+        int *client_socket_ptr = malloc(sizeof(int));
+        *client_socket_ptr = accept(server_socket, (struct sockaddr *)&client_addr, &addr_len);
+
+        if (*client_socket_ptr < 0)
         {
             perror("Accept failed");
             continue;
         }
 
-        // Convert the client's IP address to a human-readable format
+        // Convert the client's IP address to a hkuuman-readable format
         inet_ntop(AF_INET, &(client_addr.sin_addr), client_ip, INET_ADDRSTRLEN);
         printf("Client connected: %s\n", client_ip);
 
-        // Handle the client in a single session
-        handle_client(client_socket, client_ip);
+        HandleClientArgs currentClientArgs;
+        currentClientArgs.client_socket = *client_socket_ptr;
+        currentClientArgs.client_ip = client_ip;
+
+        // handle_client(client_socket, client_ip);
+        pthread_create(&thread_id, NULL, handle_client, (void *)&currentClientArgs);
+        // pthread_detach(thread_id);
 
         printf("Client disconnected: %s\n", client_ip);
     }
