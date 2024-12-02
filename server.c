@@ -22,12 +22,25 @@ typedef struct HandleClientArgs
     char *client_ip;
 } HandleClientArgs;
 
-Trivia trivia[10];
-int trivia_count = 10; // Number of trivia questions
+Trivia trivia[1];
+int trivia_count = 1; // Number of trivia questions
 
 // Function to handle communication with a single client
 void *handle_client(void *ClientArgs)
 {
+
+    printf(" == Current Leaderboard == \n");
+    char leaderboardData[MAX_LINES][MAX_LEN];
+    FILE *file;
+    int line = 0;
+
+    file = fopen("leaderboard.txt", "r");
+    while (!feof(file) && !ferror(file))
+        if (fgets(leaderboardData[line], BUFFER_SIZE, file) != NULL)
+        {
+            printf("%s", leaderboardData[line]);
+            line++;
+        }
 
     char buffer[BUFFER_SIZE]; // Buffer for communication
     int score = 0;            // Client's score
@@ -84,13 +97,30 @@ void *handle_client(void *ClientArgs)
     sprintf(buffer, "Your final score is: %d\n", score);
     send(client_socket, buffer, strlen(buffer), 0);
 
-    // Update Leaderboard
-    // FILE *file = fopen("leaderboard.txt", "a");
-    // fprintf(file, "%s|%d\n", client_ip, score);
-    // fclose(file);
+    FILE *leaderboard = fopen("leaderboard.txt", "a");
+    fprintf(leaderboard, "%s|%d\n", client_ip, score);
+    fclose(leaderboard);
 
     close(client_socket); // Close the connection with the client
     return NULL;
+
+    // My attempt to update scores inplace
+
+    // int nthCol = 0;
+    // int i = 0;
+    // int isSameAddress = 1;
+    // while (leaderboardData[0][nthCol])
+    // {
+    //     while (leaderboardData[i][nthCol] != '|')
+    //     {
+    //         isSameAddress = leaderboardData[i][nthCol] == client_ip[i];
+    //     }
+    //     if (isSameAddress){
+    //         leaderboardData[i + 1][nthCol] = score;
+    //         break;
+    //     }
+    //     nthCol++;
+    // }
 }
 
 int main()
@@ -174,7 +204,6 @@ int main()
 
         // handle_client(client_socket, client_ip);
         pthread_create(&thread_id, NULL, handle_client, (void *)&currentClientArgs);
-
         // pthread_detach(thread_id);
     }
 

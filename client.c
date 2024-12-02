@@ -48,21 +48,7 @@ int main()
 
     printf("Connected to Trivia Game Server!\n");
 
-    printf(" == Current Leaderboard == \n");
-
-    FILE *file;
-    char data[MAX_LINES][MAX_LEN];
-    int line = 0;
-
-    file = fopen("leaderboard.txt", "r");
-    while (!feof(file) && !ferror(file))
-        if (fgets(data[line], BUFFER_SIZE, file) != NULL)
-        {
-            printf("%s", data[line]);
-            line++;
-        }
-
-    while (1)
+      while (1)
     {
         // Receive a message (question or final score) from the server
         memset(buffer, 0, BUFFER_SIZE);
