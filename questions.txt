@@ -6,3 +6,11 @@ Question What is the smallest planet in our solar system?
 Mercury
 Question Who wrote the play Romeo and Juliet?
 William Shakespeare
+Question Who discovered North America?
+Christopher Columbus
+Question What is the capital of France?
+Paris
+Question How many letters in the alphabet?
+26
+Question What is the largest state in the US?
+Alaska
