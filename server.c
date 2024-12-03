@@ -42,21 +42,22 @@ void *handle_client(void *ClientArgs)
     int line = 0;
 
     file = fopen("leaderboard.txt", "r");
-
-    while (!feof(file) && !ferror(file))
-        if (fgets(leaderboardData[line], BUFFER_SIZE, file) != NULL)
-        {
-            send(client_socket, leaderboardData[line], strlen(leaderboardData[line]), 0);
-            line++;
-        }
+    fgets(leaderboardData[line], BUFFER_SIZE, file);
 
     for (int i = 0; i < trivia_count; i++)
     {
         // Send the current question to the client
+
+        if (i == 0)
+            while (!feof(file) && !ferror(file))
+                if (fgets(leaderboardData[line], BUFFER_SIZE, file) != NULL)
+                {
+                    send(client_socket, leaderboardData[line], strlen(leaderboardData[line]), 0);
+                    line++;
+                }
         send(client_socket, trivia[i].question, strlen(trivia[i].question), 0);
 
         // Allow time for the client to process the question
-        usleep(100000); // 100ms delay
 
         // Receive the client's answer
         memset(buffer, 0, BUFFER_SIZE);
