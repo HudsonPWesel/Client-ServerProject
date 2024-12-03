@@ -38,22 +38,21 @@ void *handle_client(void *ClientArgs)
     char *client_ip = CurrentArgs->client_ip;
     int client_socket = CurrentArgs->client_socket;
 
-    FILE *file;
-    int line = 0;
+    // FILE *file;
+    // int line = 0;
 
-    file = fopen("leaderboard.txt", "r");
-    while (!feof(file) && !ferror(file))
-        if (fgets(leaderboardBuffer, BUFFER_SIZE, file) != NULL)
-        {
-            send(client_socket, leaderboardBuffer, strlen(leaderboardBuffer), 0);
-            line++;
-        }
+    // file = fopen("leaderboard.txt", "r");
+    // while (!feof(file) && !ferror(file))
+    //     if (fgets(leaderboardBuffer, BUFFER_SIZE, file) != NULL)
+    //     {
+    //         send(client_socket, leaderboardBuffer, strlen(leaderboardBuffer), 0);
+    //         line++;
+    //     }
 
     for (int i = 0; i < trivia_count; i++)
     {
         // Send the current question to the client
         strcpy(buffer, trivia[i].question);
-
         send(client_socket, buffer, strlen(buffer), 0);
 
         // Allow time for the client to process the question
