@@ -47,6 +47,7 @@ int main()
     }
 
     printf("Connected to Trivia Game Server!\n");
+    int shouldSendLeaderboard = 1;
 
     while (1)
     {
@@ -67,6 +68,21 @@ int main()
         }
         else
         {
+            if (shouldSendLeaderboard)
+            {
+                FILE *file;
+                int line = 0;
+                char leaderData[1024];
+
+                file = fopen("leaderboard.txt", "r");
+                while (!feof(file) && !ferror(file))
+                    if (fgets(leaderData, BUFFER_SIZE, file) != NULL)
+                    {
+                        printf("%s", leaderData);
+                        line++;
+                    }
+                shouldSendLeaderboard = 0;
+            }
             // If it's a question, display it
             printf("Question: %s\n", buffer);
 
