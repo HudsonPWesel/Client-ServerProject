@@ -37,6 +37,21 @@ void *handle_client(void *ClientArgs)
     char *client_ip = CurrentArgs->client_ip;
     int client_socket = CurrentArgs->client_socket;
 
+    char leaderboardData[MAX_LINES][MAX_LEN];
+    FILE *file;
+    int line = 0;
+
+    file = fopen("leaderboard.txt", "r");
+    printf("== Current Scoreboard == \n");
+
+    while (!feof(file) && !ferror(file))
+        if (fgets(leaderboardData[line], BUFFER_SIZE, file) != NULL)
+        {
+            send(client_socket, leaderboardData[line], strlen(leaderboardData[line]), 0);
+            send(client_socket, "\n", strlen("\n"), 0);
+            line++;
+        }
+
     for (int i = 0; i < trivia_count; i++)
     {
         // Send the current question to the client
