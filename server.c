@@ -42,13 +42,11 @@ void *handle_client(void *ClientArgs)
     int line = 0;
 
     file = fopen("leaderboard.txt", "r");
-    printf("== Current Scoreboard == \n");
 
     while (!feof(file) && !ferror(file))
         if (fgets(leaderboardData[line], BUFFER_SIZE, file) != NULL)
         {
             send(client_socket, leaderboardData[line], strlen(leaderboardData[line]), 0);
-            send(client_socket, "\n", strlen("\n"), 0);
             line++;
         }
 
