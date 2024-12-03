@@ -29,8 +29,9 @@ int trivia_count = 4; // Number of trivia questions
 void *handle_client(void *ClientArgs)
 {
 
-    char buffer[BUFFER_SIZE]; // Buffer for communication
-    int score = 0;            // Client's score
+    char buffer[BUFFER_SIZE];            // Buffer for communication
+    char leaderboardBuffer[BUFFER_SIZE]; // Buffer for communication
+    int score = 0;                       // Client's score
 
     struct HandleClientArgs *CurrentArgs = (struct HandleClientArgs *)ClientArgs;
 
@@ -42,9 +43,9 @@ void *handle_client(void *ClientArgs)
 
     file = fopen("leaderboard.txt", "r");
     while (!feof(file) && !ferror(file))
-        if (fgets(buffer, BUFFER_SIZE, file) != NULL)
+        if (fgets(leaderboardBuffer, BUFFER_SIZE, file) != NULL)
         {
-            send(client_socket, buffer, strlen(buffer), 0);
+            send(client_socket, leaderboardBuffer, strlen(leaderboardBuffer), 0);
             line++;
         }
 
@@ -52,6 +53,7 @@ void *handle_client(void *ClientArgs)
     {
         // Send the current question to the client
         strcpy(buffer, trivia[i].question);
+
         send(client_socket, buffer, strlen(buffer), 0);
 
         // Allow time for the client to process the question
