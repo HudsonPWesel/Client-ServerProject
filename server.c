@@ -41,8 +41,12 @@ void *handle_client(void *ClientArgs)
     int line = 0;
 
     file = fopen("leaderboard.txt", "r");
-    fgets(buffer, BUFFER_SIZE, file);
-    send(client_socket, buffer, strlen(buffer), 0);
+    while (!feof(file) && !ferror(file))
+        if (fgets(buffer, BUFFER_SIZE, file) != NULL)
+        {
+            send(client_socket, buffer, strlen(buffer), 0);
+            line++;
+        }
 
     for (int i = 0; i < trivia_count; i++)
     {
